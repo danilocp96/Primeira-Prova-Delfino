@@ -12,5 +12,6 @@ package Test;
 public class test {
     public static void main(String[]args){
         Hibernate.NewHibernateUtil.getSessionFactory();
+        System.out.println("asdasdasdasdasd");
     }
 }
