@@ -5,6 +5,7 @@
  */
 package Entidades;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,9 +23,11 @@ public class Votacao {
     @GeneratedValue
     private Integer codigo;
     @ManyToOne
-    @JoinColumn
+    @JoinColumn 
     private Candidato candidato;
     @OneToOne
     @JoinColumn
     private Usuario usuario;
+    @Column(length = 1, nullable = false)
+    private Character tipo;
 }
