@@ -30,4 +30,60 @@ public class Votacao {
     private Usuario usuario;
     @Column(length = 1, nullable = false)
     private Character tipo;
+
+    /**
+     * @return the codigo
+     */
+    public Integer getCodigo() {
+        return codigo;
+    }
+
+    /**
+     * @return the candidato
+     */
+    public Candidato getCandidato() {
+        return candidato;
+    }
+
+    /**
+     * @return the usuario
+     */
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * @return the tipo
+     */
+    public Character getTipo() {
+        return tipo;
+    }
+
+    /**
+     * @param codigo the codigo to set
+     */
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
+
+    /**
+     * @param candidato the candidato to set
+     */
+    public void setCandidato(Candidato candidato) {
+        this.candidato = candidato;
+    }
+
+    /**
+     * @param usuario the usuario to set
+     */
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    /**
+     * @param tipo the tipo to set
+     */
+    public void setTipo(Character tipo) {
+        this.tipo = tipo;
+    }
 }
