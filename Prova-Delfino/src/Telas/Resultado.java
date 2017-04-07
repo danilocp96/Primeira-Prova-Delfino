@@ -5,6 +5,10 @@
  */
 package Telas;
 
+import Entidades.Votacao;
+import Repositorios.ResultadoRepositorio;
+import java.util.List;
+
 /**
  *
  * @author Alan
@@ -90,7 +94,22 @@ public class Resultado extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
+        ResultadoRepositorio resultadoRepositorio
+                = new ResultadoRepositorio();
+
+        // Chama o metodo de pesquisa
+        // Captura o resultado
+        List<Votacao> brancos = resultadoRepositorio.VotosTipo('B');
+
+        // Imprime o resultado
+        // for (int i = 0; i < vetor.length; i++)
+        // for (int valor : vetor)
+        Integer vBrancos = 0;
+        for (Votacao branco : brancos) {
+            vBrancos ++;
+        }
         
+        lblBranco.setText(vBrancos.toString());
     }//GEN-LAST:event_formWindowActivated
 
     /**
