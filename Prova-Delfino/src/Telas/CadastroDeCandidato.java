@@ -123,7 +123,7 @@ public class CadastroDeCandidato extends javax.swing.JFrame {
         List<Partido> partidos = partidoRepositorio.buscarTudoOrdenado();
        for(Partido partido : partidos){
          if(cbPartido.getSelectedItem().equals(partido.getSigla())){
-             candidato.setPartido(partido);
+             candidato.setPartido(TESTEUMDOISTRES);
          }  
        }
         
