@@ -8,6 +8,7 @@ package Repositorios;
 import Entidades.Partido;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
@@ -50,5 +51,16 @@ public class PartidoRepositorio {
         List<Partido> partidos = criterio.list();
         sessao.close();    
         return partidos;
+    }
+    
+    public Partido buscarPorNome(String nome){
+        Session sessao =  Hibernate.NewHibernateUtil.getSessionFactory().openSession();
+        Query query = sessao.createQuery("from Partido where nome = :nome");
+        query.setParameter("nome", nome);
+        List list = query.list();
+        
+        Partido par = (Partido) list.get(0);
+        sessao.close();
+        return par;
     }
 }
