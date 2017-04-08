@@ -63,4 +63,15 @@ public class PartidoRepositorio {
         sessao.close();
         return par;
     }
+    
+    public Partido buscarPorSigla(String sigla){
+        Session sessao =  Hibernate.NewHibernateUtil.getSessionFactory().openSession();
+        Query query = sessao.createQuery("from Partido where sigla = :sigla");
+        query.setParameter("sigla", sigla);
+        List list = query.list();
+        
+        Partido par = (Partido) list.get(0);
+        sessao.close();
+        return par;
+    }
 }
