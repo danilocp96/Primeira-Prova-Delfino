@@ -5,6 +5,7 @@
  */
 package Repositorios;
 
+import Entidades.Candidato;
 import Entidades.Votacao;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -31,4 +32,19 @@ public class ResultadoRepositorio {
     sessao.close();  
     return votos; 
     }
+    
+    public List<Votacao> VotoCandidato(Candidato candidato){
+    
+    Session sessao = Hibernate.NewHibernateUtil.getSessionFactory().openSession();
+    
+    Criteria criterio = sessao.createCriteria(Votacao.class);
+    criterio.createCriteria("candidato", "c");
+    criterio.add(Restrictions.eq("c.codigo", 1));
+    //criterio.add(Restrictions.like("%"+"nome"+"%", nome));
+    
+    List<Votacao> votos = criterio.list();
+    sessao.close();  
+    return votos; 
+    }
+    
 }

@@ -23,7 +23,7 @@ public class Votacao {
     @GeneratedValue
     private Integer codigo;
     @ManyToOne
-    @JoinColumn 
+    @JoinColumn
     private Candidato candidato;
     @OneToOne
     @JoinColumn

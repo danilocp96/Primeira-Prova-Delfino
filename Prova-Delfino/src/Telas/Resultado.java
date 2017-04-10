@@ -5,9 +5,14 @@
  */
 package Telas;
 
+import Entidades.Candidato;
 import Entidades.Votacao;
+import Repositorios.CandidatoRepositorio;
 import Repositorios.ResultadoRepositorio;
+import Repositorios.VotacaoRepositorio;
 import java.util.List;
+import java.util.Objects;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,6 +25,7 @@ public class Resultado extends javax.swing.JFrame {
      */
     public Resultado() {
         initComponents();
+        carregarTabela();
     }
 
     /**
@@ -32,9 +38,11 @@ public class Resultado extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbCandidato = new javax.swing.JTable();
         lblNulo = new javax.swing.JLabel();
         lblBranco = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -43,35 +51,36 @@ public class Resultado extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbCandidato.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Candidato", "Votos"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setHeaderValue("Candidato");
-            jTable1.getColumnModel().getColumn(1).setHeaderValue("Votos");
-        }
+        jScrollPane1.setViewportView(tbCandidato);
 
         lblNulo.setText("jLabel1");
 
         lblBranco.setText("jLabel2");
+
+        jLabel1.setText("Votos Brancos:");
+
+        jLabel2.setText("Votos Nulos:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(29, 29, 29)
+                .addComponent(jLabel2)
+                .addGap(40, 40, 40)
                 .addComponent(lblNulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 257, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
                 .addComponent(lblBranco)
                 .addGap(63, 63, 63))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -82,12 +91,15 @@ public class Resultado extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNulo)
-                    .addComponent(lblBranco))
-                .addGap(167, 167, 167))
+                    .addComponent(lblBranco)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -98,20 +110,41 @@ public class Resultado extends javax.swing.JFrame {
         ResultadoRepositorio resultadoRepositorio
                 = new ResultadoRepositorio();
 
-        // Chama o metodo de pesquisa
-        // Captura o resultado
         List<Votacao> brancos = resultadoRepositorio.VotosTipo('B');
-
-        // Imprime o resultado
-        // for (int i = 0; i < vetor.length; i++)
-        // for (int valor : vetor)
         Integer vBrancos = 0;
         for (Votacao branco : brancos) {
-            vBrancos ++;
+            vBrancos++;
         }
-        
         lblBranco.setText(vBrancos.toString());
+
+        List<Votacao> nulos = resultadoRepositorio.VotosTipo('N');
+        Integer vNulos = 0;
+        for (Votacao nulo : nulos) {
+            vNulos++;
+        }
+        lblNulo.setText(vNulos.toString());
     }//GEN-LAST:event_formWindowActivated
+
+    public void carregarTabela() {
+        CandidatoRepositorio candidatoRepositorio = new CandidatoRepositorio();
+        VotacaoRepositorio votacaoRepositorio = new VotacaoRepositorio();
+        List<Candidato> candidatos = candidatoRepositorio.buscarTudoOrdenado();
+        List<Votacao> votacaos = votacaoRepositorio.BuscarTudo();
+        DefaultTableModel modeloTabela = (DefaultTableModel) tbCandidato.getModel();
+        System.out.println("--------------------------------------------------");
+        for (Candidato candidato : candidatos) {
+            Integer voto = 0;
+            for (Votacao votacao : votacaos) {
+                if (votacao.getCandidato() != null) {
+                    if (candidato.getCodigo() == votacao.getCandidato().getCodigo()) {
+                        voto++;
+                    }
+                }
+            }
+            modeloTabela.addRow(new Object[]{candidato.getNome(), voto.toString()});
+        }
+        tbCandidato.setModel(modeloTabela);
+    }
 
     /**
      * @param args the command line arguments
@@ -149,9 +182,11 @@ public class Resultado extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblBranco;
     private javax.swing.JLabel lblNulo;
+    private javax.swing.JTable tbCandidato;
     // End of variables declaration//GEN-END:variables
 }
