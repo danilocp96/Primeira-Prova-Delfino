@@ -38,6 +38,7 @@ public class CadastroPartido extends javax.swing.JFrame {
         tbPartidos = new javax.swing.JTable();
         btnInserir = new javax.swing.JButton();
         btnAlt = new javax.swing.JToggleButton();
+        btnExcluir = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,16 +79,25 @@ public class CadastroPartido extends javax.swing.JFrame {
             }
         });
 
+        btnExcluir.setText("Excluir");
+        btnExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnExcluirMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(100, 100, 100)
+                .addContainerGap()
                 .addComponent(btnInserir)
-                .addGap(82, 82, 82)
+                .addGap(98, 98, 98)
                 .addComponent(btnAlt)
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+                .addComponent(btnExcluir)
+                .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -100,7 +110,8 @@ public class CadastroPartido extends javax.swing.JFrame {
                 .addContainerGap(247, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnInserir)
-                    .addComponent(btnAlt))
+                    .addComponent(btnAlt)
+                    .addComponent(btnExcluir))
                 .addGap(30, 30, 30))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -113,11 +124,15 @@ public class CadastroPartido extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     private static boolean alterar = false;
+    private static boolean excluir = false;
     private void tbPartidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbPartidosMouseClicked
         // TODO add your handling code here:
         if(alterar == true){
-            test();
+            testAlterar();
+        }else if(excluir ==true){
+            testExcluir();
         }
+        
     }//GEN-LAST:event_tbPartidosMouseClicked
 
     private void btnInserirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInserirMouseClicked
@@ -155,7 +170,19 @@ public class CadastroPartido extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAltMouseClicked
 
-    public void test(){
+    private void btnExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluirMouseClicked
+        // TODO add your handling code here:
+        if(btnExcluir.isSelected() == true){
+            JOptionPane.showMessageDialog(null, "Clique no partido que deseja excluir.");
+            btnExcluir.setText("Cancelar Exclusão");
+            excluir = true;
+        }else{
+            btnExcluir.setText("Excluir");
+            excluir = false;
+        }
+    }//GEN-LAST:event_btnExcluirMouseClicked
+
+    public void testAlterar(){
         PartidoRepositorio partidoRepositorio = new PartidoRepositorio();
         
         Integer row = tbPartidos.getSelectedRow();
@@ -184,6 +211,19 @@ public class CadastroPartido extends javax.swing.JFrame {
         
         partidoRepositorio.editar(partido);
         carregarTabela();
+    }
+    
+    public void testExcluir(){
+        PartidoRepositorio partidoRepositorio = new PartidoRepositorio();
+        Integer row = tbPartidos.getSelectedRow();
+        String nome = (String) tbPartidos.getValueAt(row, 0);
+        Partido partido = partidoRepositorio.buscarPorNome(nome);
+        partidoRepositorio.excluir(partido);
+        carregarTabela();
+        JOptionPane.showMessageDialog(null, "Excluido Com Sucesso.");
+        btnExcluir.setText("Excluir");
+        excluir = false;
+        btnExcluir.setSelected(false);
     }
     
     public void carregarTabela(){
@@ -241,6 +281,7 @@ public class CadastroPartido extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnAlt;
+    private javax.swing.JToggleButton btnExcluir;
     private javax.swing.JButton btnInserir;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbPartidos;

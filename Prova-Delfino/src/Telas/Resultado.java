@@ -58,7 +58,15 @@ public class Resultado extends javax.swing.JFrame {
             new String [] {
                 "Candidato", "Votos"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tbCandidato);
 
         lblNulo.setText("jLabel1");
