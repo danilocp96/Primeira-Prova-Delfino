@@ -8,6 +8,7 @@ package Repositorios;
 import Entidades.Candidato;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
@@ -50,6 +51,16 @@ public class CandidatoRepositorio {
         List<Candidato> candidatos = criterio.list();
         sessao.close();    
         return candidatos;
+    }
+    public Candidato buscarPorNome(String nome){
+        Session sessao =  Hibernate.NewHibernateUtil.getSessionFactory().openSession();
+        Query query = sessao.createQuery("from Candidato where nome = :nome");
+        query.setParameter("nome", nome);
+        List list = query.list();
+        
+        Candidato can = (Candidato) list.get(0);
+        sessao.close();
+        return can;
     }
     
     
