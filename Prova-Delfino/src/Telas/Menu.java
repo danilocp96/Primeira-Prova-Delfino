@@ -5,6 +5,7 @@
  */
 package Telas;
 
+import Entidades.Candidato;
 import javax.swing.JOptionPane;
 
 /**
@@ -47,6 +48,7 @@ public class Menu extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
         jMenu13 = new javax.swing.JMenu();
         jMenu14 = new javax.swing.JMenu();
@@ -81,19 +83,27 @@ public class Menu extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jMenu2.setText("Arquivo");
-        jMenu2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu2ActionPerformed(evt);
-            }
-        });
 
         jMenu4.setText("Cadastro de Candidato");
+        jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jMenu4MousePressed(evt);
+            }
+        });
         jMenu2.add(jMenu4);
 
+        jMenu3.setText("Cadastro Paritdo");
+        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jMenu3MousePressed(evt);
+            }
+        });
+        jMenu2.add(jMenu3);
+
         jMenu5.setText("Cadastro de Usuario");
-        jMenu5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu5ActionPerformed(evt);
+        jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jMenu5MousePressed(evt);
             }
         });
         jMenu2.add(jMenu5);
@@ -101,9 +111,9 @@ public class Menu extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu13.setText("Resultado");
-        jMenu13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu13ActionPerformed(evt);
+        jMenu13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jMenu13MousePressed(evt);
             }
         });
         jMenuBar1.add(jMenu13);
@@ -112,11 +122,6 @@ public class Menu extends javax.swing.JFrame {
         jMenu14.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jMenu14MousePressed(evt);
-            }
-        });
-        jMenu14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu14ActionPerformed(evt);
             }
         });
         jMenuBar1.add(jMenu14);
@@ -137,33 +142,28 @@ public class Menu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
-        CadastroDeCandidato candidato = new CadastroDeCandidato();
-       candidato.setVisible(true);
-       this.setDefaultCloseOperation(CadastroDeCandidato.DISPOSE_ON_CLOSE);
-    }//GEN-LAST:event_jMenu2ActionPerformed
-
-    private void jMenu5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu5ActionPerformed
-        CadastroUsuario usuario = new CadastroUsuario();
-        usuario.setVisible(true);
-        this.setDefaultCloseOperation(CadastroUsuario.DISPOSE_ON_CLOSE);
-    }//GEN-LAST:event_jMenu5ActionPerformed
-
-    private void jMenu13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu13ActionPerformed
-        Resultado resultado = new Resultado();
-        resultado.setVisible(true);
-        this.setDefaultCloseOperation(Resultado.DISPOSE_ON_CLOSE);
-    }//GEN-LAST:event_jMenu13ActionPerformed
-
-    private void jMenu14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu14ActionPerformed
-        
-    }//GEN-LAST:event_jMenu14ActionPerformed
-
     private void jMenu14MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu14MousePressed
         if (JOptionPane.showConfirmDialog(this, "Deseja sair do programa?", "Aviso", javax.swing.JOptionPane.YES_NO_OPTION) == 0) {
             System.exit(0);
         }
     }//GEN-LAST:event_jMenu14MousePressed
+
+    private void jMenu4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MousePressed
+         new CandidatoTela().setVisible(true);
+    }//GEN-LAST:event_jMenu4MousePressed
+
+    private void jMenu3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MousePressed
+        
+         new CadastroPartido().setVisible(true);
+    }//GEN-LAST:event_jMenu3MousePressed
+
+    private void jMenu5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MousePressed
+         new Usuarios().setVisible(true);
+    }//GEN-LAST:event_jMenu5MousePressed
+
+    private void jMenu13MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu13MousePressed
+        new Resultado().setVisible(true);
+    }//GEN-LAST:event_jMenu13MousePressed
 
     /**
      * @param args the command line arguments
@@ -208,6 +208,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu13;
     private javax.swing.JMenu jMenu14;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
