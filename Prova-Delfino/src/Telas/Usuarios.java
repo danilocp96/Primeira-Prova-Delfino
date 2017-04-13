@@ -44,7 +44,7 @@ public class Usuarios extends javax.swing.JFrame {
         btnAlterar = new javax.swing.JToggleButton();
         btnExcluir = new javax.swing.JToggleButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tbUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

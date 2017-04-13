@@ -47,7 +47,7 @@ public class CandidatoTela extends javax.swing.JFrame {
         btnExcluir = new javax.swing.JButton();
         btnEditar = new javax.swing.JToggleButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tbCandidatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
