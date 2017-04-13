@@ -5,7 +5,9 @@
  */
 package Telas;
 
+import Entidades.Partido;
 import Entidades.Usuario;
+import Repositorios.PartidoRepositorio;
 import Repositorios.UsuarioRepositorio;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -39,8 +41,8 @@ public class Usuarios extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbUsuarios = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnAlterar = new javax.swing.JToggleButton();
+        btnExcluir = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,6 +54,11 @@ public class Usuarios extends javax.swing.JFrame {
 
             }
         ));
+        tbUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbUsuariosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbUsuarios);
 
         jButton1.setText("Novo Usuario");
@@ -61,9 +68,19 @@ public class Usuarios extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Excluir Usuario");
+        btnAlterar.setText("Habilitar Alterações");
+        btnAlterar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAlterarMouseClicked(evt);
+            }
+        });
 
-        jButton3.setText("Editar Usuario");
+        btnExcluir.setText("Habilitar Exclusão");
+        btnExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnExcluirMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -72,14 +89,14 @@ public class Usuarios extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addComponent(jButton1)
-                .addGap(129, 129, 129)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addGap(49, 49, 49))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAlterar)
+                .addGap(108, 108, 108)
+                .addComponent(btnExcluir)
+                .addGap(23, 23, 23))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -90,14 +107,15 @@ public class Usuarios extends javax.swing.JFrame {
                 .addGap(59, 59, 59)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(btnAlterar)
+                    .addComponent(btnExcluir))
                 .addContainerGap(55, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+private boolean excluir = false;
+private boolean alterar = false;
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
           // TODO add your handling code here:
@@ -117,6 +135,98 @@ public class Usuarios extends javax.swing.JFrame {
         usuarioRepositorio.inserir(usuario);
         carregarTabela();
     }//GEN-LAST:event_jButton1MouseClicked
+
+    public void testExcluir(){
+        UsuarioRepositorio usuarioRepositorio = new UsuarioRepositorio();
+        Integer row = tbUsuarios.getSelectedRow();
+        String CPF = (String) tbUsuarios.getValueAt(row, 1);
+        Usuario usuario = usuarioRepositorio.buscarPorCPF(CPF);
+        usuarioRepositorio.excluir(usuario);
+        carregarTabela();
+        JOptionPane.showMessageDialog(null, "Excluido Com Sucesso.");
+        btnExcluir.setText("Excluir");
+        excluir = false;
+        btnExcluir.setSelected(false);
+    }
+    private void tbUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbUsuariosMouseClicked
+        // TODO add your handling code here:
+         if(alterar == true){
+            test();
+        }
+        else if(excluir == true){
+            testExcluir();
+        }
+    
+    }//GEN-LAST:event_tbUsuariosMouseClicked
+public void test(){
+    UsuarioRepositorio usuarioRepositorio = new UsuarioRepositorio();
+        Integer row = tbUsuarios.getSelectedRow();
+        Integer col = tbUsuarios.getSelectedColumn();
+        String title = (String) tbUsuarios.getColumnName(col);
+        String CPF = (String) tbUsuarios.getValueAt(row, 1);
+        Usuario usuario = usuarioRepositorio.buscarPorCPF(CPF);
+        
+        switch (title) {
+            case "Nome":
+                String n = JOptionPane.showInputDialog("Digite o novo valor:");
+                if(n == null){
+                    break;
+                }
+               usuario.setNome(n);
+                break;
+            case "CPF":
+                String cpf = JOptionPane.showInputDialog("Digite o novo valor:");
+                if(cpf == null){
+                    break;
+                }
+               usuario.setCpf(cpf);
+                break;
+            case "Senha":
+              String senha = JOptionPane.showInputDialog("Insira a senha:");
+                if(senha == null){
+                    break;
+                }
+                usuario.setSenha(senha);
+               break;
+            case "Tipo":
+                String tipo = JOptionPane.showInputDialog("Insira o tipo: 'A' para administrador e 'E' para eleitor");
+                if(tipo == null){
+                    break;
+                }else 
+                while(!tipo.equals("A") || !tipo.equals("E")){
+                 tipo = JOptionPane.showInputDialog("Insira o tipo: 'A' para administrador e 'E' para eleitor");   
+                }
+                char tipos = tipo.charAt(0);
+                usuario.setTipo(tipos);
+        }
+        
+        usuarioRepositorio.editar(usuario);
+        carregarTabela();
+}
+
+    private void btnAlterarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlterarMouseClicked
+        // TODO add your handling code here:
+         if(btnAlterar.isSelected() == true){
+            JOptionPane.showMessageDialog(null, "Clique no campo que deseja alterar.");
+            btnAlterar.setText("Desabilitar Alterações");
+            alterar = true;
+        }else{
+            btnAlterar.setText("Habilitar Alterações");
+            alterar = false;
+        }
+    }//GEN-LAST:event_btnAlterarMouseClicked
+
+    private void btnExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluirMouseClicked
+        // TODO add your handling code here:
+         if(btnExcluir.isSelected() == true){
+            JOptionPane.showMessageDialog(null, "Clique no usuario que deseja excluir.");
+            btnExcluir.setText("Cancelar Exclusão");
+            excluir = true;
+        }else{
+            btnExcluir.setText("Habilitar Exclusão");
+            excluir = false;
+        }
+    }//GEN-LAST:event_btnExcluirMouseClicked
 public  void carregarTabela(){
         UsuarioRepositorio usuarioRepositorio = new UsuarioRepositorio();
         List<Usuario> usuarios = usuarioRepositorio.buscarTudoOrdenado();
@@ -167,9 +277,9 @@ public  void carregarTabela(){
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton btnAlterar;
+    private javax.swing.JToggleButton btnExcluir;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbUsuarios;
     // End of variables declaration//GEN-END:variables
