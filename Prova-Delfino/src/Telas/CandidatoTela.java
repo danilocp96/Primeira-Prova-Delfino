@@ -209,10 +209,10 @@ public void testExcluir(){
         Integer row = tbCandidatos.getSelectedRow();
         String nome = (String) tbCandidatos.getValueAt(row, 0);
         Candidato candidato = candidatoRepositorio.buscarPorNome(nome);
-        usuarioRepositorio.excluir(usuario);
+        candidatoRepositorio.excluir(candidato);
         carregarTabela();
         JOptionPane.showMessageDialog(null, "Excluido Com Sucesso.");
-        btnExcluir.setText("Excluir");
+        btnExcluir.setText("Habilitar Exclusão");
         excluir = false;
         btnExcluir.setSelected(false);
     }

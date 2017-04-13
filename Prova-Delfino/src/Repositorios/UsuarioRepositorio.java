@@ -53,10 +53,10 @@ public class UsuarioRepositorio {
         return usuarios;
     }
     
-    public Usuario buscarPorNome(String nome) {
+    public Usuario buscarPorCPF(String CPF) {
         Session sessao = Hibernate.NewHibernateUtil.getSessionFactory().openSession();
 
-        Usuario resultado = (Usuario) sessao.get(Usuario.class, nome);
+        Usuario resultado = (Usuario) sessao.get(Usuario.class, CPF);
 
         sessao.close();
 
