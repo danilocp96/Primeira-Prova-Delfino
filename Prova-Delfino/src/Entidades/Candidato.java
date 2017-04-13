@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Candidato {
     @Id
+    @Column (unique = true)
     private Integer codigo;
     @Column(length = 200, nullable = false)
     private String nome;

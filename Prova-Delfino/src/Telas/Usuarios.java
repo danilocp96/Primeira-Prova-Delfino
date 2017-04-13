@@ -75,7 +75,7 @@ public class Usuarios extends javax.swing.JFrame {
             }
         });
 
-        btnExcluir.setText("Habilitar Exclusão");
+        btnExcluir.setText("Excluir Usuario");
         btnExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnExcluirMouseClicked(evt);
@@ -87,16 +87,15 @@ public class Usuarios extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAlterar)
-                .addGap(108, 108, 108)
-                .addComponent(btnExcluir)
-                .addGap(23, 23, 23))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAlterar)
+                        .addGap(137, 137, 137)
+                        .addComponent(btnExcluir))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -223,7 +222,7 @@ public void test(){
             btnExcluir.setText("Cancelar Exclusão");
             excluir = true;
         }else{
-            btnExcluir.setText("Habilitar Exclusão");
+            btnExcluir.setText("Excluir");
             excluir = false;
         }
     }//GEN-LAST:event_btnExcluirMouseClicked

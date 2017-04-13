@@ -44,8 +44,8 @@ public class CandidatoTela extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbCandidatos = new javax.swing.JTable();
         btnCandidato = new javax.swing.JButton();
-        btnExcluir = new javax.swing.JButton();
         btnEditar = new javax.swing.JToggleButton();
+        btnExcluir = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -71,12 +71,17 @@ public class CandidatoTela extends javax.swing.JFrame {
             }
         });
 
-        btnExcluir.setText("Excluir Usuario");
-
         btnEditar.setText("Habilitar Alterações");
         btnEditar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnEditarMouseClicked(evt);
+            }
+        });
+
+        btnExcluir.setText("Excluir");
+        btnExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnExcluirMouseClicked(evt);
             }
         });
 
@@ -85,16 +90,15 @@ public class CandidatoTela extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(btnCandidato)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnExcluir)
-                .addGap(92, 92, 92)
-                .addComponent(btnEditar)
-                .addGap(45, 45, 45))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnCandidato)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEditar)
+                        .addGap(134, 134, 134)
+                        .addComponent(btnExcluir)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -119,6 +123,8 @@ public class CandidatoTela extends javax.swing.JFrame {
         CandidatoRepositorio candidatoRepositorio = new CandidatoRepositorio();
         Candidato candidato = new  Candidato();
         PartidoRepositorio partidoRepositorio = new PartidoRepositorio();
+        int codigo = Integer.parseInt(JOptionPane.showInputDialog("Insira o codigo do candidato:"));
+        candidato.setCodigo(codigo);
         String nome = JOptionPane.showInputDialog("Insira o Nome:");
         candidato.setNome(nome);
         String cpf = JOptionPane.showInputDialog("Insira a CPF:");
@@ -126,6 +132,10 @@ public class CandidatoTela extends javax.swing.JFrame {
         String part = JOptionPane.showInputDialog("Insira o partido:");
         Partido partido = new Partido();
         partido = partidoRepositorio.buscarPorSigla(part);
+        while(partido == null){
+             part = JOptionPane.showInputDialog("Insira o partido:");
+             partido = partidoRepositorio.buscarPorSigla(part);
+        }
         candidato.setPartido(partido);
         candidatoRepositorio.inserir(candidato);
         carregarTabela();
@@ -138,7 +148,7 @@ private static boolean excluir = false;
             test();
         }
         else if(excluir == true){
-            teste();
+            testExcluir();
         }
     }//GEN-LAST:event_tbCandidatosMouseClicked
 
@@ -153,6 +163,18 @@ private static boolean excluir = false;
             alterar = false;
         }
     }//GEN-LAST:event_btnEditarMouseClicked
+
+    private void btnExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluirMouseClicked
+        // TODO add your handling code here:
+        if(btnExcluir.isSelected() == true){
+            JOptionPane.showMessageDialog(null, "Clique no candidato que deseja excluir.");
+            btnExcluir.setText("Cancelar Exclusão");
+            excluir = true;
+        }else{
+            btnExcluir.setText(" Excluir");
+            excluir = false;
+        }
+    }//GEN-LAST:event_btnExcluirMouseClicked
 public  void carregarTabela(){
         CandidatoRepositorio candidatoRepositorio = new CandidatoRepositorio();
         List<Candidato> candidatos = candidatoRepositorio.buscarTudoOrdenado();
@@ -260,7 +282,7 @@ public void testExcluir(){
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCandidato;
     private javax.swing.JToggleButton btnEditar;
-    private javax.swing.JButton btnExcluir;
+    private javax.swing.JToggleButton btnExcluir;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbCandidatos;
     // End of variables declaration//GEN-END:variables
