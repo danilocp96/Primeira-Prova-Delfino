@@ -7,6 +7,7 @@ package Repositorios;
 
 import Entidades.Usuario;
 import java.util.List;
+import net.sf.ehcache.hibernate.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -50,5 +51,15 @@ public class UsuarioRepositorio {
         List<Usuario> usuarios = criterio.list();
         sessao.close();    
         return usuarios;
+    }
+    
+    public Usuario buscarPorNome(String nome) {
+        Session sessao = Hibernate.NewHibernateUtil.getSessionFactory().openSession();
+
+        Usuario resultado = (Usuario) sessao.get(Usuario.class, nome);
+
+        sessao.close();
+
+        return resultado;
     }
 }

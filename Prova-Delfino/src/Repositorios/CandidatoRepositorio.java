@@ -7,11 +7,13 @@ package Repositorios;
 
 import Entidades.Candidato;
 import java.util.List;
+import net.sf.ehcache.hibernate.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 /**Classe repositorio para as tarefas da entidade candidato
  *
@@ -63,5 +65,12 @@ public class CandidatoRepositorio {
         return can;
     }
     
-    
+    public Candidato buscarPorCodigo(Integer codigo){
+        Session sessao = Hibernate.NewHibernateUtil.getSessionFactory().openSession();
+        
+        Candidato resultado = (Candidato) sessao.get(Candidato.class, codigo);
+        sessao.close();
+        return resultado;
+        
+    }
 }

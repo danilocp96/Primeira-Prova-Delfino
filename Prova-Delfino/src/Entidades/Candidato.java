@@ -19,7 +19,6 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Candidato {
     @Id
-    @GeneratedValue
     private Integer codigo;
     @Column(length = 200, nullable = false)
     private String nome;
