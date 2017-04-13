@@ -73,7 +73,7 @@ public class PartidoRepositorio {
         System.out.println("3");
         List list = query.list();
         System.out.println("4");
-        if(list.get(0) == null){
+        if(list.isEmpty()){
             sessao.close();
             return null;
         }
