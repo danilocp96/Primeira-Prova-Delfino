@@ -8,8 +8,10 @@ package Telas;
 
 import Entidades.Candidato;
 import Entidades.Partido;
+import Entidades.Usuario;
 import Repositorios.CandidatoRepositorio;
 import Repositorios.PartidoRepositorio;
+import Repositorios.UsuarioRepositorio;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -129,10 +131,14 @@ public class CandidatoTela extends javax.swing.JFrame {
         carregarTabela();
     }//GEN-LAST:event_btnCandidatoMouseClicked
 private static boolean alterar = false;
+private static boolean excluir = false;
     private void tbCandidatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCandidatosMouseClicked
         // TODO add your handling code here:
         if(alterar == true){
             test();
+        }
+        else if(excluir == true){
+            teste();
         }
     }//GEN-LAST:event_tbCandidatosMouseClicked
 
@@ -198,6 +204,20 @@ public void test(){
         candidatoRepositorio.editar(candidato);
         carregarTabela();
 }
+public void testExcluir(){
+        CandidatoRepositorio candidatoRepositorio = new CandidatoRepositorio();
+        Integer row = tbCandidatos.getSelectedRow();
+        String nome = (String) tbCandidatos.getValueAt(row, 0);
+        Candidato candidato = candidatoRepositorio.buscarPorNome(nome);
+        usuarioRepositorio.excluir(usuario);
+        carregarTabela();
+        JOptionPane.showMessageDialog(null, "Excluido Com Sucesso.");
+        btnExcluir.setText("Excluir");
+        excluir = false;
+        btnExcluir.setSelected(false);
+    }
+
+
     /**
      * @param args the command line arguments
      */
