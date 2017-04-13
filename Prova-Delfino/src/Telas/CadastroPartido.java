@@ -40,7 +40,7 @@ public class CadastroPartido extends javax.swing.JFrame {
         btnAlt = new javax.swing.JToggleButton();
         btnExcluir = new javax.swing.JToggleButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tbPartidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
